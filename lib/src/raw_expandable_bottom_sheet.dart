@@ -142,14 +142,14 @@ class ExpandableBottomSheetState extends State<ExpandableBottomSheet>
 
   /// Expands the content of the widget.
   void expand() {
-    _afterUpdateWidgetBuild(false);
+    afterUpdateWidgetBuild(false);
     _callCallbacks = true;
     _animateToTop();
   }
 
   /// Contracts the content of the widget.
   void contract() {
-    _afterUpdateWidgetBuild(false);
+    afterUpdateWidgetBuild(false);
     _callCallbacks = true;
     _animateToBottom();
   }
@@ -172,13 +172,11 @@ class ExpandableBottomSheetState extends State<ExpandableBottomSheet>
     );
     _controller.addStatusListener(_handleAnimationStatusUpdate);
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => _afterUpdateWidgetBuild(true));
+        .addPostFrameCallback((_) => afterUpdateWidgetBuild(true));
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _afterUpdateWidgetBuild(false));
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
@@ -256,7 +254,7 @@ class ExpandableBottomSheetState extends State<ExpandableBottomSheet>
     }
   }
 
-  void _afterUpdateWidgetBuild(bool isFirstBuild) {
+  void afterUpdateWidgetBuild(bool isFirstBuild) {
     double headerHeight = _headerKey.currentContext!.size!.height;
     double footerHeight = _footerKey.currentContext!.size!.height;
     double contentHeight = _contentKey.currentContext!.size!.height;
